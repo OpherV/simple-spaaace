@@ -72,7 +72,7 @@ class SpaaaceRenderer extends Renderer {
         this.bg = new PIXI.extras.TilingSprite(PIXI.loader.resources.bg.texture,
             this.viewportWidth, this.viewportHeight);
 
-        this.stage.addChild(this.bg);
+        this.layer1.addChild(this.bg);
 
         // this.debugText = new PIXI.Text('DEBUG', {fontFamily:"arial", fontSize: "100px", fill:"white"});
         // this.debugText.anchor.set(0.5, 0.5);
@@ -105,7 +105,7 @@ class SpaaaceRenderer extends Renderer {
         let sprite;
 
         if (objData.class == Ship) {
-            sprite = new PIXI.Sprite(PIXI.loader.resources.missile.ship);
+            sprite = new PIXI.Sprite(PIXI.loader.resources.ship.texture);
             this.sprites[objData.id] = sprite;
 
             sprite.anchor.set(0.5, 0.5);
