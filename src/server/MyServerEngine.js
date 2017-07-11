@@ -2,26 +2,31 @@
 
 const ServerEngine = require('lance-gg').ServerEngine;
 
-class MyServerEngine extends ServerEngine {
-
+class SpaaaceServerEngine extends ServerEngine {
     constructor(io, gameEngine, inputOptions) {
         super(io, gameEngine, inputOptions);
-        this.serializer.registerClass(require('../common/PlayerAvatar'));
-    }
 
-    start() {
-        super.start();
+        this.serializer.registerClass(require('../common/Missile'));
+        this.serializer.registerClass(require('../common/Ship'));
     }
 
     onPlayerConnected(socket) {
         super.onPlayerConnected(socket);
+
+        this.gameEngine.makeShip(socket.playerId);
     }
 
     onPlayerDisconnected(socketId, playerId) {
         super.onPlayerDisconnected(socketId, playerId);
 
-        delete this.gameEngine.world.objects[playerId];
+        // iterate through all objects, delete those that are associated with the player
+        for (let objId of Object.keys(this.gameEngine.world.objects)) {
+            let obj = this.gameEngine.world.objects[objId];
+            if (obj.playerId == playerId) {
+                delete this.gameEngine.world.objects[objId];
+            }
+        }
     }
 }
 
-module.exports = MyServerEngine;
+module.exports = SpaaaceServerEngine;

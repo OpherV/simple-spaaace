@@ -1,8 +1,6 @@
 const qsOptions = require('query-string').parse(location.search);
 const MyClientEngine = require('../client/MyClientEngine');
 const MyGameEngine = require('../common/MyGameEngine');
-const SimplePhysicsEngine = require('lance-gg').physics.SimplePhysicsEngine;
-
 
 // default options, overwritten by query-string options
 // is sent to both game engine and client engine
@@ -18,10 +16,6 @@ const defaults = {
     }
 };
 let options = Object.assign(defaults, qsOptions);
-
-// extrapolate mode requires a physics engine on the client
-if (options.syncOptions.sync === 'extrapolate')
-    options.physicsEngine = new SimplePhysicsEngine();
 
 // create a client engine and a game engine
 const gameEngine = new MyGameEngine(options);

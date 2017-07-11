@@ -1,12 +1,17 @@
 'use strict';
 
+const SimplePhysicsEngine = require('lance-gg').physics.SimplePhysicsEngine;
 const GameEngine = require('lance-gg').GameEngine;
 const Missile= require('./Missile');
 const Ship = require('./Ship');
 const TwoVector = require('lance-gg').serialize.TwoVector;
-const Timer = require('./Timer');
+const Timer = require('lance-gg').game.Timer;
 
 class SpaaaceGameEngine extends GameEngine {
+
+    constructor() {
+        super(SimplePhysicsEngine);
+    }
 
     start() {
         super.start();
@@ -38,7 +43,7 @@ class SpaaaceGameEngine extends GameEngine {
             }
         });
     };
-    
+
     processInput(inputData, playerId) {
 
         super.processInput(inputData, playerId);
