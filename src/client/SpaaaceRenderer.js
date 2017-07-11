@@ -73,13 +73,6 @@ class SpaaaceRenderer extends Renderer {
             this.viewportWidth, this.viewportHeight);
 
         this.layer1.addChild(this.bg);
-
-        // this.debugText = new PIXI.Text('DEBUG', {fontFamily:"arial", fontSize: "100px", fill:"white"});
-        // this.debugText.anchor.set(0.5, 0.5);
-        // this.debugText.x = this.gameEngine.worldSettings.width/2;
-        // this.debugText.y = this.gameEngine.worldSettings.height/2;
-        // this.camera.addChild(this.debugText);
-
     }
 
     draw() {
@@ -134,6 +127,7 @@ class SpaaaceRenderer extends Renderer {
     }
 
     removeObject(obj) {
+        console.log('remove obj', obj);
         if (this.playerShip && obj.id == this.playerShip.id) {
             this.playerShip = null;
         }
