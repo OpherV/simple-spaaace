@@ -49,7 +49,7 @@ class SpaaaceRenderer extends Renderer {
             PIXI.loader.add(Object.keys(this.ASSETPATHS).map((x)=>{
                 return{
                     name: x,
-                    url: this.assetPathPrefix + this.ASSETPATHS[x]
+                    url: this.ASSETPATHS[x]
                 };
             }))
                 .load(() => {
