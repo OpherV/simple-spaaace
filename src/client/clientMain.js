@@ -1,6 +1,6 @@
 const qsOptions = require('query-string').parse(location.search);
-const MyClientEngine = require('../client/MyClientEngine');
-const MyGameEngine = require('../common/MyGameEngine');
+const MyClientEngine = require('./SpaaaceClientEngine');
+const MyGameEngine = require('../common/SpaaaceGameEngine');
 
 // default options, overwritten by query-string options
 // is sent to both game engine and client engine
