@@ -14,7 +14,7 @@ class SpaaaceClientEngine extends ClientEngine {
         this.controls.bindKey('left', 'left', { repeat: true });
         this.controls.bindKey('right', 'right', { repeat: true });
         this.controls.bindKey('up', 'up', { repeat: true } );
-        this.controls.bindKey('space', 'space', { repeat: true } );
+        this.controls.bindKey('space', 'space');
     }
 }
 
