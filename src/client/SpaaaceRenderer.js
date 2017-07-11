@@ -19,8 +19,7 @@ class SpaaaceRenderer extends Renderer {
             smokeParticle: 'assets/smokeparticle.png'
         };
     }
-
-    // TODO: document
+    
     constructor(gameEngine, clientEngine) {
         super(gameEngine, clientEngine);
         this.sprites = {};
@@ -32,8 +31,8 @@ class SpaaaceRenderer extends Renderer {
         this.viewportHeight = window.innerHeight;
 
         this.stage = new PIXI.Container();
-        this.layer1 = new PIXI.Container();
-        this.layer2 = new PIXI.Container();
+        this.layer1 = new PIXI.Container(); // for background
+        this.layer2 = new PIXI.Container(); // for ships and missiles
 
         this.stage.addChild(this.layer1, this.layer2);
 
