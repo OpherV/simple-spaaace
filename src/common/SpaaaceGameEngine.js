@@ -9,8 +9,8 @@ const Timer = require('lance-gg').game.Timer;
 
 class SpaaaceGameEngine extends GameEngine {
 
-    constructor() {
-        super(SimplePhysicsEngine);
+    constructor(options) {
+        super(SimplePhysicsEngine, options);
     }
 
     start() {

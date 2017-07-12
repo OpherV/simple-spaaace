@@ -1,6 +1,6 @@
 const qsOptions = require('query-string').parse(location.search);
-const MyClientEngine = require('./SpaaaceClientEngine');
-const MyGameEngine = require('../common/SpaaaceGameEngine');
+const SpaaaceClientEngine = require('./SpaaaceClientEngine');
+const SpaaaceGameEngine = require('../common/SpaaaceGameEngine');
 
 // default options, overwritten by query-string options
 // is sent to both game engine and client engine
@@ -18,7 +18,7 @@ const defaults = {
 let options = Object.assign(defaults, qsOptions);
 
 // create a client engine and a game engine
-const gameEngine = new MyGameEngine(options);
-const clientEngine = new MyClientEngine(gameEngine, options);
+const gameEngine = new SpaaaceGameEngine(options);
+const clientEngine = new SpaaaceClientEngine(gameEngine, options);
 
 document.addEventListener('DOMContentLoaded', function(e) { clientEngine.start(); });
