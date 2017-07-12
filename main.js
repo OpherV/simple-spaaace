@@ -20,7 +20,11 @@ const MyGameEngine = require(path.join(__dirname, 'src/common/SpaaaceGameEngine.
 
 // Game Instances
 const gameEngine = new MyGameEngine();
-const serverEngine = new MyServerEngine(io, gameEngine, { debug: {}, updateRate: 6 });
+const serverEngine = new MyServerEngine(io, gameEngine, {
+    debug: {},
+    updateRate: 6,
+    timeoutInterval: 0 // no timeout
+});
 
 // start the game
 serverEngine.start();
