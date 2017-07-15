@@ -1,7 +1,6 @@
 const PIXI = require('pixi.js');
 const Renderer = require('lance-gg').render.Renderer;
 
-const Missile = require('../common/Missile');
 const Ship = require('../common/Ship');
 
 /**
@@ -107,14 +106,6 @@ class SpaaaceRenderer extends Renderer {
                 sprite.tint = 0XFF00FF; // color  player ship
             }
 
-        } else if (objData.class == Missile) {
-            sprite = new PIXI.Sprite(PIXI.loader.resources.missile.texture);
-            this.sprites[objData.id] = sprite;
-
-            sprite.width = 81 * 0.5;
-            sprite.height = 46 * 0.5;
-
-            sprite.anchor.set(0.5, 0.5);
         }
 
         sprite.position.set(objData.position.x, objData.position.y);

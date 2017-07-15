@@ -4,13 +4,7 @@ class SpaaaceServerEngine extends ServerEngine {
     constructor(io, gameEngine, inputOptions) {
         super(io, gameEngine, inputOptions);
 
-        this.serializer.registerClass(require('../common/Missile'));
         this.serializer.registerClass(require('../common/Ship'));
-
-        this.gameEngine.on('missileHit', (e) => {
-            console.log(`ship killed: ${e.ship.toString()}`);
-            this.gameEngine.removeObjectFromWorld(e.ship.id);
-        });
     }
 
     onPlayerConnected(socket) {
