@@ -16,7 +16,8 @@ module.exports = {
         "no-warning-comments": "off",
         "object-curly-spacing": ["error", "always"],
         "padded-blocks": "off",
-        "require-jsdoc": "off"
+        "require-jsdoc": "off",
+        "arrow-parens": "off"
     }
 
 };

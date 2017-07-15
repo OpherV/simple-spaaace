@@ -1,5 +1,3 @@
-'use strict';
-
 const SimplePhysicsEngine = require('lance-gg').physics.SimplePhysicsEngine;
 const GameEngine = require('lance-gg').GameEngine;
 const Missile= require('./Missile');
@@ -24,8 +22,8 @@ class SpaaaceGameEngine extends GameEngine {
 
         this.worldSettings = {
             worldWrap: true,
-            width: 1000,
-            height: 1000
+            width: 500,
+            height: 500
         };
 
         this.on('collisionStart', (e)=> {
@@ -78,7 +76,7 @@ class SpaaaceGameEngine extends GameEngine {
         let newShipX = Math.floor(Math.random()*(this.worldSettings.width-200)) + 200;
         let newShipY = Math.floor(Math.random()*(this.worldSettings.height-200)) + 200;
 
-        let ship = new Ship(++this.world.idCount, this, new TwoVector(newShipX, newShipY));
+        let ship = new Ship(++this.world.idCount, new TwoVector(newShipX, newShipY));
         ship.playerId = playerId;
         this.addObjectToWorld(ship);
         console.log(`ship added: ${ship.toString()}`);

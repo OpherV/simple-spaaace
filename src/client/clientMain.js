@@ -21,4 +21,4 @@ let options = Object.assign(defaults, qsOptions);
 const gameEngine = new SpaaaceGameEngine(options);
 const clientEngine = new SpaaaceClientEngine(gameEngine, options);
 
-document.addEventListener('DOMContentLoaded', function(e) { clientEngine.start(); });
+document.addEventListener('DOMContentLoaded', e => clientEngine.start());

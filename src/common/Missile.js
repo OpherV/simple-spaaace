@@ -3,6 +3,11 @@ const DynamicObject= require('lance-gg').serialize.DynamicObject;
 
 class Missile extends DynamicObject {
 
+    constructor(id, position) {
+        super(id, position);
+        this.class = Missile;
+    };
+
     static get netScheme() {
         return Object.assign({
             inputId: { type: Serializer.TYPES.INT32 },
@@ -16,15 +21,9 @@ class Missile extends DynamicObject {
 
     syncTo(other) {
         super.syncTo(other);
-        //todo what's input id for
         this.inputId = other.inputId;
         this.ownerId = other.ownerId;
     }
-
-    constructor(id, x, y) {
-        super(id, x, y);
-        this.class = Missile;
-    };
 }
 
 module.exports = Missile;

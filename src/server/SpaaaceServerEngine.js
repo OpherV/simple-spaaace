@@ -1,5 +1,3 @@
-'use strict';
-
 const ServerEngine = require('lance-gg').ServerEngine;
 
 class SpaaaceServerEngine extends ServerEngine {

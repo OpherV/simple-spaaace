@@ -24,7 +24,7 @@
     "start": "node main.js",
     "postinstall": "browserify src/client/clientMain.js -o dist/bundle.js ",
     "build": "browserify src/client/clientMain.js -o dist/bundle.js ",
-    "watchify": "watchify src/client/clientMain.js -o dist/bundle.js -v -d"
+    "watch": "watchify src/client/clientMain.js -o dist/bundle.js -v -d"
   },
   "repository": {
     "type": "git",

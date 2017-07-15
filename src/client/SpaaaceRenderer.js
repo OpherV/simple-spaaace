@@ -1,5 +1,3 @@
-'use strict';
-
 const PIXI = require('pixi.js');
 const Renderer = require('lance-gg').render.Renderer;
 
@@ -19,7 +17,7 @@ class SpaaaceRenderer extends Renderer {
             smokeParticle: 'assets/smokeparticle.png'
         };
     }
-    
+
     constructor(gameEngine, clientEngine) {
         super(gameEngine, clientEngine);
         this.sprites = {};
@@ -45,8 +43,8 @@ class SpaaaceRenderer extends Renderer {
         }
 
         return new Promise((resolve, reject)=>{
-            PIXI.loader.add(Object.keys(this.ASSETPATHS).map((x)=>{
-                return{
+            PIXI.loader.add(Object.keys(this.ASSETPATHS).map( x => {
+                return {
                     name: x,
                     url: this.ASSETPATHS[x]
                 };
@@ -54,8 +52,6 @@ class SpaaaceRenderer extends Renderer {
                 .load(() => {
                     this.isReady = true;
                     this.setupStage();
-                    this.gameEngine.emit('renderer.ready');
-
                     resolve();
                 });
         });
@@ -68,8 +64,10 @@ class SpaaaceRenderer extends Renderer {
 
     setupStage() {
 
-        this.bg = new PIXI.extras.TilingSprite(PIXI.loader.resources.bg.texture,
-            this.viewportWidth, this.viewportHeight);
+        this.bg = new PIXI.extras.TilingSprite(
+            PIXI.loader.resources.bg.texture,
+            this.gameEngine.worldSettings.width,
+            this.gameEngine.worldSettings.width);
 
         this.layer1.addChild(this.bg);
     }
