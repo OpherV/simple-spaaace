@@ -1,11 +1,6 @@
-const DynamicObject = require('lance-gg').serialize.DynamicObject;
+import DynamicObject from 'lance/serialize/DynamicObject';
 
-class Ship extends DynamicObject {
-
-    constructor(id, position) {
-        super(id, position);
-        this.class = Ship;
-    };
+export default class Ship extends DynamicObject {
 
     toString() {
         return `Ship::${super.toString()}`;
@@ -17,5 +12,3 @@ class Ship extends DynamicObject {
     get bendingAngleLocalMultiple() { return 0.0; }
 
 }
-
-module.exports = Ship;

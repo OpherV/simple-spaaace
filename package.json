@@ -7,33 +7,36 @@
   "description": "An HTML5 multiplayer game based on Lance",
   "main": "main.js",
   "dependencies": {
-    "browserify": "^13.0.1",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-module-resolver": "^2.7.1",
+    "babel-preset-es201 5": "^6.24.1",
     "express": "^4.14.0",
+    "html-webpack-plugin": "^2.29.0",
     "lance-gg": "lance-gg/lance#develop",
+    "null-loader": "^0.1.1",
     "pixi.js": "^4.5.3",
     "query-string": "^4.2.3",
-    "socket.io": "^1.4.8"
+    "socket.io": "^1.4.8",
+    "webpack": "^3.4.1"
   },
   "devDependencies": {
-    "babelify": "^7.3.0",
+    "babel-cli": "^6.24.1",
     "eslint": "^3.16.1",
     "eslint-config-google": "^0.7.1",
-    "watchify": "^3.7.0"
+    "webpack": "^3.4.1",
+    "webpack-dev-server": "^2.6.1"
   },
   "scripts": {
-    "start": "node main.js",
-    "postinstall": "browserify src/client/clientMain.js -o dist/bundle.js ",
-    "build": "browserify src/client/clientMain.js -o dist/bundle.js ",
-    "watch": "watchify src/client/clientMain.js -o dist/bundle.js -v -d"
+    "start": "babel-node main.js --presets es2015",
+    "nodemon": "nodemon main.js --exec babel-node --presets es2015",
+    "build": "webpack",
+    "dev": "webpack --watch",
+    "stats": "webpack --env production --profile --json > stats.json"
   },
   "repository": {
     "type": "git",
     "url": ""
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
   },
   "keywords": [
     "game",

@@ -1,8 +1,8 @@
-const PIXI = require('pixi.js');
-const Renderer = require('lance-gg').render.Renderer;
+import 'pixi.js';
+import Renderer from 'lance/render/Renderer';
 
-const Missile = require('../common/Missile');
-const Ship = require('../common/Ship');
+import Missile from '../common/Missile';
+import Ship from '../common/Ship';
 
 /**
  * Renderer for the Spaaace client - based on Pixi.js
@@ -22,6 +22,10 @@ class SpaaaceRenderer extends Renderer {
         super(gameEngine, clientEngine);
         this.sprites = {};
         this.isReady = false;
+
+        gameEngine.on('start', e => {
+            this.setupStage();
+        })
     }
 
     init() {
@@ -51,7 +55,6 @@ class SpaaaceRenderer extends Renderer {
             }))
                 .load(() => {
                     this.isReady = true;
-                    this.setupStage();
                     resolve();
                 });
         });
@@ -63,7 +66,7 @@ class SpaaaceRenderer extends Renderer {
     }
 
     setupStage() {
-
+        console.log(this.gameEngine.world);
         this.bg = new PIXI.extras.TilingSprite(
             PIXI.loader.resources.bg.texture,
             this.gameEngine.worldSettings.width,
@@ -80,7 +83,7 @@ class SpaaaceRenderer extends Renderer {
         for (let objId of Object.keys(this.sprites)) {
             let objData = this.gameEngine.world.objects[objId];
             let sprite = this.sprites[objId];
-
+            
             if (objData) {
                 sprite.x = objData.position.x;
                 sprite.y = objData.position.y;
@@ -94,7 +97,7 @@ class SpaaaceRenderer extends Renderer {
     addObject(objData) {
         let sprite;
 
-        if (objData.class == Ship) {
+        if (objData instanceof Ship) {
             sprite = new PIXI.Sprite(PIXI.loader.resources.ship.texture);
             this.sprites[objData.id] = sprite;
 
@@ -107,7 +110,7 @@ class SpaaaceRenderer extends Renderer {
                 sprite.tint = 0XFF00FF; // color  player ship
             }
 
-        } else if (objData.class == Missile) {
+        } else if (objData instanceof Missile) {
             sprite = new PIXI.Sprite(PIXI.loader.resources.missile.texture);
             this.sprites[objData.id] = sprite;
 

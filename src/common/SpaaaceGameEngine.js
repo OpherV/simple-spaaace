@@ -1,35 +1,36 @@
-const SimplePhysicsEngine = require('lance-gg').physics.SimplePhysicsEngine;
-const GameEngine = require('lance-gg').GameEngine;
-const Missile= require('./Missile');
-const Ship = require('./Ship');
-const TwoVector = require('lance-gg').serialize.TwoVector;
-const Timer = require('lance-gg').game.Timer;
+import SimplePhysicsEngine from 'lance/physics/SimplePhysicsEngine';
+import GameEngine from 'lance/GameEngine';
+import Missile from './Missile';
+import Ship from './Ship';
+import TwoVector from 'lance/serialize/TwoVector';
 
-class SpaaaceGameEngine extends GameEngine {
+export default class SpaaaceGameEngine extends GameEngine {
 
     constructor(options) {
-        super(SimplePhysicsEngine, options);
+        super(options);
+        this.physicsEngine = new SimplePhysicsEngine({
+            gameEngine: this,
+            collisions: {
+                type: 'brute'
+            }
+        });
+    }
+
+    initWorld(){
+        super.initWorld({
+            worldWrap: true,
+            width: 500,
+            height: 500
+        });
     }
 
     start() {
         super.start();
-
-        this.timer = new Timer();
-        this.timer.play();
-        this.on('server__postStep', ()=>{
-            this.timer.tick();
-        });
-
-        this.worldSettings = {
-            worldWrap: true,
-            width: 500,
-            height: 500
-        };
-
+        
         this.on('collisionStart', (e)=> {
             let collisionObjects = Object.keys(e).map(k => e[k]);
-            let ship = collisionObjects.find(o => o.class === Ship);
-            let missile = collisionObjects.find(o => o.class === Missile);
+            let ship = collisionObjects.find(o => o instanceof Ship);
+            let missile = collisionObjects.find(o => o instanceof Missile);
 
             if (!ship || !missile)
                 return;
@@ -51,7 +52,7 @@ class SpaaaceGameEngine extends GameEngine {
 
         for (let objId in this.world.objects) {
             let o = this.world.objects[objId];
-            if (o.playerId == playerId && o.class == Ship) {
+            if (o.playerId == playerId && o instanceof Ship) {
                 playerShip = o;
                 break;
             }
@@ -112,5 +113,3 @@ class SpaaaceGameEngine extends GameEngine {
         }
     }
 }
-
-module.exports = SpaaaceGameEngine;

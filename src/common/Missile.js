@@ -1,12 +1,7 @@
-const Serializer = require('lance-gg').serialize.Serializer;
-const DynamicObject= require('lance-gg').serialize.DynamicObject;
+import Serializer from 'lance/serialize/Serializer';
+import DynamicObject from 'lance/serialize/DynamicObject';
 
-class Missile extends DynamicObject {
-
-    constructor(id, position) {
-        super(id, position);
-        this.class = Missile;
-    };
+export default class Missile extends DynamicObject {
 
     static get netScheme() {
         return Object.assign({
@@ -25,5 +20,3 @@ class Missile extends DynamicObject {
         this.ownerId = other.ownerId;
     }
 }
-
-module.exports = Missile;

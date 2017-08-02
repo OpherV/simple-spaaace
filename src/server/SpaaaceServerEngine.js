@@ -1,11 +1,14 @@
-const ServerEngine = require('lance-gg').ServerEngine;
+import ServerEngine from 'lance/ServerEngine';
+import Missile from '../common/Missile';
+import Ship from '../common/Ship';
 
-class SpaaaceServerEngine extends ServerEngine {
+export default class SpaaaceServerEngine extends ServerEngine {
     constructor(io, gameEngine, inputOptions) {
         super(io, gameEngine, inputOptions);
 
-        this.serializer.registerClass(require('../common/Missile'));
-        this.serializer.registerClass(require('../common/Ship'));
+        console.log(Missile);
+        this.serializer.registerClass(Missile);
+        this.serializer.registerClass(Ship);
 
         this.gameEngine.on('missileHit', (e) => {
             console.log(`ship killed: ${e.ship.toString()}`);
@@ -31,5 +34,3 @@ class SpaaaceServerEngine extends ServerEngine {
         }
     }
 }
-
-module.exports = SpaaaceServerEngine;
