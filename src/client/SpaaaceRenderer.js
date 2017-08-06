@@ -1,5 +1,5 @@
 import 'pixi.js';
-import Renderer from 'lance/render/Renderer';
+import PixiRenderer from 'lance/render/PixiRenderer';
 
 import Missile from '../common/Missile';
 import Ship from '../common/Ship';
@@ -7,7 +7,7 @@ import Ship from '../common/Ship';
 /**
  * Renderer for the Spaaace client - based on Pixi.js
  */
-class SpaaaceRenderer extends Renderer {
+export default class SpaaaceRenderer extends PixiRenderer {
 
     get ASSETPATHS() {
         return {
@@ -20,78 +20,20 @@ class SpaaaceRenderer extends Renderer {
 
     constructor(gameEngine, clientEngine) {
         super(gameEngine, clientEngine);
-        this.sprites = {};
-        this.isReady = false;
-
-        gameEngine.on('start', e => {
-            this.setupStage();
-        })
+        gameEngine.on('start', this.onGameEngineStart.bind(this));
     }
 
-    init() {
-        this.viewportWidth = window.innerWidth;
-        this.viewportHeight = window.innerHeight;
-
-        this.stage = new PIXI.Container();
+    onGameEngineStart() {
         this.layer1 = new PIXI.Container(); // for background
         this.layer2 = new PIXI.Container(); // for ships and missiles
-
         this.stage.addChild(this.layer1, this.layer2);
 
-        if (document.readyState === 'complete' || document.readyState === 'loaded' || document.readyState === 'interactive') {
-            this.onDOMLoaded();
-        } else {
-            document.addEventListener('DOMContentLoaded', ()=>{
-                this.onDOMLoaded();
-            });
-        }
-
-        return new Promise((resolve, reject)=>{
-            PIXI.loader.add(Object.keys(this.ASSETPATHS).map( x => {
-                return {
-                    name: x,
-                    url: this.ASSETPATHS[x]
-                };
-            }))
-                .load(() => {
-                    this.isReady = true;
-                    resolve();
-                });
-        });
-    }
-
-    onDOMLoaded() {
-        this.renderer = PIXI.autoDetectRenderer(this.viewportWidth, this.viewportHeight);
-        document.body.querySelector('.pixiContainer').appendChild(this.renderer.view);
-    }
-
-    setupStage() {
-        console.log(this.gameEngine.world);
         this.bg = new PIXI.extras.TilingSprite(
             PIXI.loader.resources.bg.texture,
             this.gameEngine.worldSettings.width,
             this.gameEngine.worldSettings.width);
 
         this.layer1.addChild(this.bg);
-    }
-
-    draw() {
-        super.draw();
-
-        if (!this.isReady) return; // assets might not have been loaded yet
-
-        for (let objId of Object.keys(this.sprites)) {
-            let objData = this.gameEngine.world.objects[objId];
-            let sprite = this.sprites[objId];
-            
-            if (objData) {
-                sprite.x = objData.position.x;
-                sprite.y = objData.position.y;
-                sprite.rotation = this.gameEngine.world.objects[objId].angle * Math.PI/180;
-            }
-        }
-
-        this.renderer.render(this.stage);
     }
 
     addObject(objData) {
@@ -140,5 +82,3 @@ class SpaaaceRenderer extends Renderer {
     }
 
 }
-
-module.exports = SpaaaceRenderer;
