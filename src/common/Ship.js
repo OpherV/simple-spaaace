@@ -1,11 +1,7 @@
 import DynamicObject from 'lance/serialize/DynamicObject';
 
 export default class Ship extends DynamicObject {
-
-    toString() {
-        return `Ship::${super.toString()}`;
-    }
-
+    
     get maxSpeed() { return 3.0; }
 
     // ship rotation is input-deterministic, no bending needed

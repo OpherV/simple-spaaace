@@ -10,10 +10,6 @@ export default class Missile extends DynamicObject {
         }, super.netScheme);
     }
 
-    toString() {
-        return `Missile::${super.toString()}`;
-    }
-
     syncTo(other) {
         super.syncTo(other);
         this.inputId = other.inputId;
