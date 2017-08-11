@@ -7,6 +7,7 @@ export default class SpaaaceServerEngine extends ServerEngine {
         super(io, gameEngine, inputOptions);
 
         console.log(Missile);
+        //todo add to gameEngine
         this.serializer.registerClass(Missile);
         this.serializer.registerClass(Ship);
 
