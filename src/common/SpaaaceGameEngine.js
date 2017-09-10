@@ -77,7 +77,9 @@ export default class SpaaaceGameEngine extends GameEngine {
         let newShipX = Math.floor(Math.random()*(this.worldSettings.width-200)) + 200;
         let newShipY = Math.floor(Math.random()*(this.worldSettings.height-200)) + 200;
 
-        let ship = new Ship(++this.world.idCount, new TwoVector(newShipX, newShipY));
+        let ship = new Ship(this, null, {
+            position: new TwoVector(newShipX, newShipY)
+        });
         ship.playerId = playerId;
         this.addObjectToWorld(ship);
         console.log(`ship added: ${ship.toString()}`);
@@ -86,7 +88,7 @@ export default class SpaaaceGameEngine extends GameEngine {
     };
 
     makeMissile(playerShip, inputId) {
-        let missile = new Missile(++this.world.idCount);
+        let missile = new Missile(this);
         missile.position.copy(playerShip.position);
         missile.velocity.copy(playerShip.velocity);
         missile.angle = playerShip.angle;
