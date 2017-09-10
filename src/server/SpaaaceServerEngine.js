@@ -29,7 +29,7 @@ export default class SpaaaceServerEngine extends ServerEngine {
         for (let objId of Object.keys(this.gameEngine.world.objects)) {
             let obj = this.gameEngine.world.objects[objId];
             if (obj.playerId == playerId) {
-                delete this.gameEngine.world.objects[objId];
+                this.gameEngine.removeObjectFromWorld(obj.id);
             }
         }
     }
