@@ -89,6 +89,8 @@ export default class SpaaaceGameEngine extends GameEngine {
 
     makeMissile(playerShip, inputId) {
         let missile = new Missile(this);
+
+        // we want the missile location and velocity to correspond to that of the ship firing it
         missile.position.copy(playerShip.position);
         missile.velocity.copy(playerShip.velocity);
         missile.angle = playerShip.angle;
@@ -101,6 +103,8 @@ export default class SpaaaceGameEngine extends GameEngine {
         this.trace.trace(`missile[${missile.id}] created vel=${missile.velocity}`);
 
         let obj = this.addObjectToWorld(missile);
+
+        // destroy the missile after some game ticks
         if (obj)
             this.timer.add(40, this.destroyMissile, this, [obj.id]);
 
