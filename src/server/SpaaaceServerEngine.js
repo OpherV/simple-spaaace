@@ -12,19 +12,14 @@ export default class SpaaaceServerEngine extends ServerEngine {
 
     onPlayerConnected(socket) {
         super.onPlayerConnected(socket);
-
         this.gameEngine.makeShip(socket.playerId);
     }
 
     onPlayerDisconnected(socketId, playerId) {
         super.onPlayerDisconnected(socketId, playerId);
 
-        // iterate through all objects, delete those that are associated with the player
-        for (let objId of Object.keys(this.gameEngine.world.objects)) {
-            let obj = this.gameEngine.world.objects[objId];
-            if (obj.playerId == playerId) {
-                this.gameEngine.removeObjectFromWorld(obj.id);
-            }
-        }
+        // iterate through all objects, delete those that are associated with the player (ship and missiles)
+        let playerObjects = this.gameEngine.world.queryObjects({ playerId: playerId});
+        playerObjects.forEach( obj => this.gameEngine.removeObjectFromWorld(obj.id) );
     }
 }
