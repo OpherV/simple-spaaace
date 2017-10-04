@@ -1,7 +1,7 @@
 import SimplePhysicsEngine from 'lance/physics/SimplePhysicsEngine';
 import GameEngine from 'lance/GameEngine';
-import Missile from './Missile';
 import Ship from './Ship';
+import Missile from './Missile';
 import TwoVector from 'lance/serialize/TwoVector';
 
 export default class SpaaaceGameEngine extends GameEngine {
@@ -14,6 +14,11 @@ export default class SpaaaceGameEngine extends GameEngine {
                 type: 'brute'
             }
         });
+    }
+
+    registerClasses(serializer){
+        serializer.registerClass(Ship);
+        serializer.registerClass(Missile);
     }
 
     initWorld(){

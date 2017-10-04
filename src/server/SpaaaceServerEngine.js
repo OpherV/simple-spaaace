@@ -1,14 +1,8 @@
 import ServerEngine from 'lance/ServerEngine';
-import Missile from '../common/Missile';
-import Ship from '../common/Ship';
 
 export default class SpaaaceServerEngine extends ServerEngine {
     constructor(io, gameEngine, inputOptions) {
         super(io, gameEngine, inputOptions);
-        
-        //todo add to gameEngine
-        this.serializer.registerClass(Missile);
-        this.serializer.registerClass(Ship);
 
         this.gameEngine.on('missileHit', (e) => {
             console.log(`ship killed: ${e.ship.toString()}`);
