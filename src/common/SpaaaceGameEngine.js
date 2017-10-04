@@ -40,28 +40,24 @@ export default class SpaaaceGameEngine extends GameEngine {
             if (!ship || !missile)
                 return;
 
-            if (missile.ownerId !== ship.id) {
+            // make sure not to process the collision between a missile and the ship that fired it
+            if (missile.playerId !== ship.playerId) {
                 this.destroyMissile(missile.id);
-                this.trace.info(`missile by ship=${missile.ownerId} hit ship=${ship.id}`);
+                this.trace.info(`missile by ship=${missile.playerId} hit ship=${ship.id}`);
                 this.emit('missileHit', { missile, ship });
             }
         });
     };
 
-    processInput(inputData, playerId) {
+    processInput(inputData, playerId, isServer) {
 
         super.processInput(inputData, playerId);
 
         // get the player ship tied to the player socket
-        let playerShip;
-
-        for (let objId in this.world.objects) {
-            let o = this.world.objects[objId];
-            if (o.playerId == playerId && o instanceof Ship) {
-                playerShip = o;
-                break;
-            }
-        }
+        let playerShip = this.world.queryObject({
+            playerId: playerId,
+            instanceType: Ship
+        });
 
         if (playerShip) {
             if (inputData.input == 'up') {
@@ -85,6 +81,7 @@ export default class SpaaaceGameEngine extends GameEngine {
         let ship = new Ship(this, null, {
             position: new TwoVector(newShipX, newShipY)
         });
+
         ship.playerId = playerId;
         this.addObjectToWorld(ship);
         console.log(`ship added: ${ship.toString()}`);
@@ -94,14 +91,13 @@ export default class SpaaaceGameEngine extends GameEngine {
 
     makeMissile(playerShip, inputId) {
         let missile = new Missile(this);
-
+        
         // we want the missile location and velocity to correspond to that of the ship firing it
         missile.position.copy(playerShip.position);
         missile.velocity.copy(playerShip.velocity);
         missile.angle = playerShip.angle;
         missile.playerId = playerShip.playerId;
-        missile.ownerId = playerShip.id;
-        missile.inputId = inputId;
+        missile.inputId = inputId; // this enables usage of the missile shadow object
         missile.velocity.x += Math.cos(missile.angle * (Math.PI / 180)) * 10;
         missile.velocity.y += Math.sin(missile.angle * (Math.PI / 180)) * 10;
 
@@ -109,7 +105,7 @@ export default class SpaaaceGameEngine extends GameEngine {
 
         let obj = this.addObjectToWorld(missile);
 
-        // destroy the missile after some game ticks
+        // if the object was added successfully to the game world, destroy the missile after some game ticks
         if (obj)
             this.timer.add(40, this.destroyMissile, this, [obj.id]);
 
