@@ -43,7 +43,7 @@ export default class SpaaaceGameEngine extends GameEngine {
             // make sure not to process the collision between a missile and the ship that fired it
             if (missile.playerId !== ship.playerId) {
                 this.destroyMissile(missile.id);
-                this.trace.info(`missile by ship=${missile.playerId} hit ship=${ship.id}`);
+                this.trace.info(() => `missile by ship=${missile.playerId} hit ship=${ship.id}`);
                 this.emit('missileHit', { missile, ship });
             }
         });
@@ -101,7 +101,7 @@ export default class SpaaaceGameEngine extends GameEngine {
         missile.velocity.x += Math.cos(missile.angle * (Math.PI / 180)) * 10;
         missile.velocity.y += Math.sin(missile.angle * (Math.PI / 180)) * 10;
 
-        this.trace.trace(`missile[${missile.id}] created vel=${missile.velocity}`);
+        this.trace.trace(() => `missile[${missile.id}] created vel=${missile.velocity}`);
 
         let obj = this.addObjectToWorld(missile);
 
@@ -115,7 +115,7 @@ export default class SpaaaceGameEngine extends GameEngine {
     // destroy the missile if it still exists
     destroyMissile(missileId) {
         if (this.world.objects[missileId]) {
-            this.trace.trace(`missile[${missileId}] destroyed`);
+            this.trace.trace(() => `missile[${missileId}] destroyed`);
             this.removeObjectFromWorld(missileId);
         }
     }
