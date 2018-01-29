@@ -1,7 +1,7 @@
 import SpaaaceClientEngine from './SpaaaceClientEngine';
 import SpaaaceGameEngine from '../common/SpaaaceGameEngine';
 
-// is sent to both game engine and client engine
+// sent to both game engine and client engine
 const options  = {
     delayInputCount: 3,
     clientIDSpace: 1000000, //todo shouldn't be here
