@@ -10,8 +10,7 @@ export default class SpaaaceRenderer extends PixiRenderer {
         return {
             ship: 'assets/ship1.png',
             missile: 'assets/shot.png',
-            bg: 'assets/space3.png',
-            smokeParticle: 'assets/smokeparticle.png'
+            bg: 'assets/space3.png'
         };
     }
 
